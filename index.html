@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Metadados - Contas a pagar</title>
+    <link rel="stylesheet" href="styles/app.css">
+</head>
+<body>
+<div class="container" id="app">
+    <div class="row">
+        <div class="eight columns">
+            <h4>Contas a pagar</h4>
+            <label>Nome</label>
+            <input v-model="nome" class="u-full-width" type="text" placeholder="nome da conta" id="nome">
+
+            <label>Valor</label>
+            <input v-model="valor" class="u-full-width" type="text" placeholder="0,00" id="valor">
+
+            <label>Data vencimento</label>
+            <input v-model="dataVencimento" class="u-full-width" type="date" id="dataVencimento">
+
+            <label>Data pagamento</label>
+            <input v-model="dataPagamento" class="u-full-width" type="date" id="dataPagamento">
+
+            <input class="button" type="button" value="Limpar">
+            <input @click="salvar()" class="button-primary" type="submit" value="Cadastrar">
+
+            <div :class="{mensagem: mensagem}">{{mensagem}}</div>
+        </div>
+    </div>
+    <div class="row table">
+        <div class="ten columns">
+            <h4>Lista de contas</h4>
+            <table>
+                <tr>
+                    <td>Nome</td>
+                    <td>Valor original</td>
+                    <td>Valor corrigido</td>
+                    <td>Dias atraso</td>
+                    <td>Data pagamento</td>
+                </tr>
+                <template v-for="(conta, index) in contas">
+                    <tr :class="{red: conta.diasAtraso > 0}" :key="index">
+                        <td>{{conta.nome}}</td>
+                        <td>{{formataMoeda(conta.valorOriginal)}}</td>
+                        <td>{{formataMoeda(conta.valorCorrigido)}}</td>
+                        <td>{{conta.diasAtraso}}</td>
+                        <td>{{formataData(conta.dataPagamento)}}</td>
+                    </tr>
+                </template>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

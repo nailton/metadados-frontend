@@ -1,0 +1,15 @@
+@import url('normalize.css');
+@import url('skeleton.css');
+
+.red{
+    background: #f6d1d1;
+}
+.mensagem{
+    border: 2px solid #6ab9f1;
+    padding: 5px 5px;
+    border-radius: 5px;
+    text-align: center;
+}
+.table{
+    margin-top: 2rem;
+}
