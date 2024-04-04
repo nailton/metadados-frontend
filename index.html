@@ -18,13 +18,13 @@
             <input v-model="valor" class="u-full-width" type="text" placeholder="0,00" id="valor">
 
             <label>Data vencimento</label>
-            <input v-model="dataVencimento" class="u-full-width" type="date" id="dataVencimento">
+            <input v-model="dataVencimento" class="u-full-width" type="datetime-local" id="dataVencimento">
 
             <label>Data pagamento</label>
-            <input v-model="dataPagamento" class="u-full-width" type="date" id="dataPagamento">
+            <input v-model="dataPagamento" class="u-full-width" type="datetime-local" id="dataPagamento">
 
-            <input class="button" type="button" value="Limpar">
-            <input @click="salvar()" class="button-primary" type="submit" value="Cadastrar">
+            <button @click="limpar()" class="button button-actions">Limpar</button>
+            <button @click="salvar()" class="button-primary">Cadastrar</button>
 
             <div :class="{mensagem: mensagem}">{{mensagem}}</div>
         </div>

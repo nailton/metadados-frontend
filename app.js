@@ -2,7 +2,11 @@ const app = Vue.createApp({
     data() {
         return {
             contas: [],
-            mensagem: ""
+            mensagem: '',
+            nome: '',
+            valor: '',
+            dataVencimento: Date,
+            dataPagamento: Date,
         }
     },
     computed: {},
@@ -15,15 +19,6 @@ const app = Vue.createApp({
 
             const response = await fetch("http://localhost:5077/api/Contas", requestOptions);
             this.contas = await response.json();
-        },
-        formataData(data) {
-            return new Date(data).toLocaleDateString('pt-BR');
-        },
-        formataMoeda(moeda) {
-            return new Intl.NumberFormat('pt-BR',
-                {style: 'currency', currency: 'BRL'}).format(
-                moeda,
-            );
         },
         async salvar() {
             if (this.verificaCamposNulo()) return;
@@ -49,6 +44,7 @@ const app = Vue.createApp({
             if (response.status === 201) {
                 // Requisição bem-sucedida
                 this.mensagem = "Conta salva com sucesso!";
+                this.limpar();
                 await this.getContas();
             } else {
                 // Erro na requisição
@@ -62,7 +58,22 @@ const app = Vue.createApp({
             if (!this.dataVencimento) return this.mensagem = "Data vencimento é obrigatório";
             if (!this.dataPagamento) return this.mensagem = "Data pagamento é obrigatório";
             return false;
-        }
+        },
+        formataData(data) {
+            return new Date(data).toLocaleDateString('pt-BR');
+        },
+        formataMoeda(moeda) {
+            return new Intl.NumberFormat('pt-BR',
+                {style: 'currency', currency: 'BRL'}).format(
+                moeda,
+            );
+        },
+        limpar() {
+            this.nome = "";
+            this.valor = "";
+            this.dataVencimento = "";
+            this.dataPagamento = "";
+        },
     },
     mounted() {
         this.getContas();
